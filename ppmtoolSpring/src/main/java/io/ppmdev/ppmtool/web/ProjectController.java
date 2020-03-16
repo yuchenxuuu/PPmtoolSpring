@@ -36,17 +36,13 @@ public class ProjectController {
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{projectName}")
-    public ResponseEntity<?> getProjectByName(@PathVariable String projectName){
-        Project project = projectService.findProjectByProjectName(projectName);
-        if(project == null) throw new ProjectIdExceptions("Project name doesn't exist.");
-        return new ResponseEntity<Project>(project, HttpStatus.OK);
-    }
+
 
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId){
-        Project project = projectService.findProjectByProjectName(projectId);
-        if(project == null) throw new ProjectIdExceptions("Project name doesn't exist.");
+
+        Project project = projectService.findProjectByProjectId(projectId);
+
         return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
@@ -54,10 +50,12 @@ public class ProjectController {
     public Iterable<Project> getAllProjects(){
         return projectService.findAllProjects();
     }
-    @DeleteMapping("/{projectName}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectName) {
-        projectService.deleteProjectByName(projectName);
-        return new ResponseEntity<String>("Project"+projectName +" was deleted!", HttpStatus.OK);
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+        projectService.deleteProjectByIdentifier(projectId);
+
+        return new ResponseEntity<String>("Project with ID: '"+projectId+"' was deleted", HttpStatus.OK);
     }
 
 }

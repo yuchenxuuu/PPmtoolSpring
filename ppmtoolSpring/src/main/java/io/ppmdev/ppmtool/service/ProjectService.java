@@ -1,5 +1,6 @@
 package io.ppmdev.ppmtool.service;
 
+import io.ppmdev.ppmtool.domain.Backlog;
 import io.ppmdev.ppmtool.domain.Project;
 import io.ppmdev.ppmtool.exceptions.ProjectIdExceptions;
 import io.ppmdev.ppmtool.exceptions.ProjectNameExceptions;
@@ -13,8 +14,19 @@ public class ProjectService {
     private Repo repo;
 
     public Project saveOrUpdateProject(Project project) {
+        try{
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            if(project.getId() == null){
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            }
             return repo.save(project);
+        }catch(Exception e){
+            throw new ProjectIdExceptions("Error when create the project");
+        }
+
     }
 
 

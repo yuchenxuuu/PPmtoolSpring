@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteProject } from "../../actions/projectAction";
-import classnames from "classnames";
 
+class Item extends Component {
 
-class item extends Component {
-
-    OnDeleteClick = id => {
+    onDeleteClick = id => {
       this.props.deleteProject(id);
     };
 
@@ -39,14 +37,14 @@ class item extends Component {
                           </li>
                         </Link>
                     
-                          <li className="list-group-item delete" 
-                            onClick={this.OnDeleteClick.bind(
+                        <li className="list-group-item delete" 
+                            onClick={this.onDeleteClick.bind(
                               this,
                               project.projectIdentifier
                             )}
                           >
                             <i className="fa fa-minus-circle pr-1"> Delete Project</i>
-                          </li>
+                        </li>
                       
                       </ul>
                     </div>
@@ -58,9 +56,9 @@ class item extends Component {
     }
 }
 
-item.propTypes = {
+Item.propTypes = {
   deleteProject: PropTypes.func.isRequired
 }
 
 export default connect(null,{deleteProject})
-(item);
+(Item);

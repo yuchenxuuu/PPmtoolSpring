@@ -1,5 +1,5 @@
 import axios from "axios"
-import {GET_ERROR, GET_PROJECTS, GET_PROJECT, DELETE_PROJECT, GET_BACKLOG, GET_PROJECTS_TASKS,DELETE_PROJECT_TASKS } from "./types";
+import {GET_ERROR, GET_PROJECTS, GET_PROJECT, DELETE_PROJECT} from "./types";
 
 export const createProject = (project, history) => async dispatch => {
     try {

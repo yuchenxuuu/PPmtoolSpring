@@ -18,4 +18,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<Object> userNameExistHandler(UserNameExistException pie, WebRequest request){
+        UserNameExistResponse response = new UserNameExistResponse(pie.getMessage());
+        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+    }
+
 }

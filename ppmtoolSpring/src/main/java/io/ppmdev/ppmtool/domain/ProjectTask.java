@@ -1,4 +1,6 @@
 package io.ppmdev.ppmtool.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -22,10 +24,24 @@ public class ProjectTask {
     @Column(updatable = false)
     private String projectIdentifier;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "backlog_id", nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
+
 
     public ProjectTask() {
 
     }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
+    }
+
     public String getProjectSequence() {
         return projectSequence;
     }

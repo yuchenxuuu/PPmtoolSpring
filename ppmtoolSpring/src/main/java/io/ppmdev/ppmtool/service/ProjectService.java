@@ -4,6 +4,7 @@ import io.ppmdev.ppmtool.domain.Backlog;
 import io.ppmdev.ppmtool.domain.Project;
 import io.ppmdev.ppmtool.exceptions.ProjectIdExceptions;
 import io.ppmdev.ppmtool.exceptions.ProjectNameExceptions;
+import io.ppmdev.ppmtool.repositories.BacklogRepo;
 import io.ppmdev.ppmtool.repositories.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 public class ProjectService {
     @Autowired
     private Repo repo;
+
+    @Autowired
+    private BacklogRepo backlogrepo;
 
     public Project saveOrUpdateProject(Project project) {
         try{
@@ -22,7 +26,12 @@ public class ProjectService {
                 backlog.setProject(project);
                 backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             }
+
+            if(project.getId() != null){
+                project.setBacklog(backlogrepo.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()));
+            }
             return repo.save(project);
+
         }catch(Exception e){
             throw new ProjectIdExceptions("Error when create the project");
         }

@@ -3,23 +3,46 @@ package io.ppmdev.ppmtool.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Backlog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer PTSequence = 0;
     private String projectIdentifier;
 
+    //OneToOne with project
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="project_id",nullable = false)
     @JsonIgnore
     private Project project;
 
-    public Backlog() {
+    //OneToMany projecttasks
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
+    private List<ProjectTask> projectTasks = new ArrayList<>();
 
+
+    public Backlog() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getPTSequence() {
+        return PTSequence;
+    }
+
+    public void setPTSequence(Integer PTSequence) {
+        this.PTSequence = PTSequence;
     }
 
     public String getProjectIdentifier() {
@@ -38,23 +61,11 @@ public class Backlog {
         this.project = project;
     }
 
-
-
-    public Integer getPTSequence() {
-        return PTSequence;
+    public List<ProjectTask> getProjectTasks() {
+        return projectTasks;
     }
 
-    public void setPTSequence(Integer PTSequence) {
-        this.PTSequence = PTSequence;
+    public void setProjectTasks(List<ProjectTask> projectTasks) {
+        this.projectTasks = projectTasks;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-
-
-
-
-
 }

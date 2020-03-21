@@ -27,11 +27,10 @@ export const getBacklog = backlog_id => async dispatch => {
         payload: res.data
       });
     } catch (error) {
-        dispatch({
-            type:GET_ERROR,
-            payload:error.response.data
-            }
-        );
+      dispatch({
+        type: GET_ERROR,
+        payload: error.response.data
+      });
     }
   };
   export const getProjectTask = (
@@ -45,7 +44,7 @@ export const getBacklog = backlog_id => async dispatch => {
         type: GET_PROJECTS_TASKS,
         payload: res.data
       });
-    } catch (err) {
+    } catch (error) {
       history.push("/dashboard");
     }
   };
@@ -70,3 +69,16 @@ export const getBacklog = backlog_id => async dispatch => {
       });
     }
   };
+
+  export const deleteProjectTask = (
+    backlog_id,
+    pt_id) => async dispatch => {
+        if(window.confirm(`Please confirm you are deleting project task ${pt_id}`)){
+            await axios.delete(`/api/backlog/${backlog_id}/${pt_id}`);
+        }
+        dispatch({
+            type: DELETE_PROJECT_TASKS,
+            payload: pt_id
+          });
+
+  }

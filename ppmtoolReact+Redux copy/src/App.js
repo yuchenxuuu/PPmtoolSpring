@@ -15,6 +15,7 @@ import AddProjectTask from './Components/ProjectBoard/Projecttask/AddProjectTask
 import UpdateProjectTask from './Components/ProjectBoard/Projecttask/UpdateProjectTask';
 import Landing from './Components/Layout/Landing';
 import Register from './Components/UserManagement/Register';
+import Login from './Components/UserManagement/Login';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         }
           <Route exact path = "/" component={Landing}/>
           <Route exact path = "/register" component={Register}/>
+          <Route exact path = "/login" component={Login}/>
         {
           //public routes
         }
